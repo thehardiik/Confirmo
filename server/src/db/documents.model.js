@@ -5,7 +5,8 @@ const documentSchema = new Schema({
     documentID: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        index: true
     },
     title: {
         type: String,
@@ -15,10 +16,12 @@ const documentSchema = new Schema({
         type: String,
         required: true,
     },
-    organisation: {
-        type: String,
-        require: true
-    }
+    organization: {
+        type: Schema.Types.ObjectId,
+        ref: "Organization",
+        required: true
+    },
+    
 })
 
 const Document = mongoose.model('Document' , documentSchema)
