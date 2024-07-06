@@ -8,11 +8,6 @@ const organizationSchema = new Schema({
         required: true,
         trim: true
     },
-    organiszationID: {
-        type: String,
-        required: true,
-        unique: true
-    },
     email: {
         type: String,
         required: true,
@@ -33,18 +28,20 @@ const organizationSchema = new Schema({
     }
 })
 
-organizationSchema.pre("save" , async function (next) {
-
-    if(!this.isModified("password")) return next()
-
-    this.password = await bcrypt.hash(this.password, 10)
-    next()
+organizationSchema.pre("save" , async function (next){
+    
+    if(this.isModified("password")){
+        this.password = await bcrypt.hash(this.password, 10)
+        next()
+    }else{
+        next()
+    }  
 })
 
 organizationSchema.methods.isPasswordCorrect = async function (password) {
     return await bcrypt.compare(password, this.password)
 }
 
-const Organization = new mongoose.Model('Organization' , organizationSchema)
+const Organization = mongoose.model('Organization' , organizationSchema)
 
 module.exports = Organization
