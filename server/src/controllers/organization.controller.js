@@ -58,4 +58,37 @@ async function registerOrganization(req, res) {
     }
 }
 
-module.exports = registerOrganization
+async function loginOrganization(req, res) {
+
+    try {
+        // get data from frontend
+        const {email, password} = req.body
+    
+        // find organization with given email id
+        const existedOrg = await Organization.findOne({email})
+    
+        if(!existedOrg){
+            console.log("Organization with this email does not exist")
+            throw new Error
+        }
+    
+        // check password
+        const isPassCorrect = await existedOrg.isPasswordCorrect(password)
+    
+        if(!isPassCorrect){
+            console.log("Password Incorrect")
+            throw new Error
+        }
+
+        res.status(200).json({
+            existedOrg
+        })
+
+    } catch (error) {
+        console.log(error)
+    }
+
+
+}
+
+module.exports = {registerOrganization, loginOrganization}
