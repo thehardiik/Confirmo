@@ -12,7 +12,6 @@ async function generateAccessAndRefreshToken(organization) {
     return {accessToken, refreshToken}
 }
 
-
 async function registerOrganization(req, res) {
     try {
         
@@ -93,11 +92,21 @@ async function loginOrganization(req, res) {
             throw new Error
         }
 
-        const {accessToken, refreshToken} = generateAccessAndRefreshToken(existedOrg)
+        const {accessToken, refreshToken} = await generateAccessAndRefreshToken(existedOrg)
+        console.log(accessToken, refreshToken)
 
         // TODO: Remove password and refresh token before sending to frontend
 
-        res.status(200).json({
+        const options = {
+            httpOnly: true,
+            secure: true
+        }
+
+        res
+        .status(200)
+        .cookie("Access Token" , accessToken, options)
+        .cookie("Refresh Token" , refreshToken, options)
+        .json({
             existedOrg,
             accessToken,
             refreshToken
