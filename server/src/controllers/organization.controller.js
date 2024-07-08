@@ -1,5 +1,18 @@
 const Organization = require("../db/organization.model")
 
+async function generateAccessAndRefreshToken(organization) {
+
+    const accessToken = organization.generateAccessToken()
+    const refreshToken = organization.generateRefreshToken()
+
+    organization.refreshToken = refreshToken
+
+    await organization.save({validateBeforeSave: false})
+
+    return {accessToken, refreshToken}
+}
+
+
 async function registerOrganization(req, res) {
     try {
         
@@ -80,8 +93,14 @@ async function loginOrganization(req, res) {
             throw new Error
         }
 
+        const {accessToken, refreshToken} = generateAccessAndRefreshToken(existedOrg)
+
+        // TODO: Remove password and refresh token before sending to frontend
+
         res.status(200).json({
-            existedOrg
+            existedOrg,
+            accessToken,
+            refreshToken
         })
 
     } catch (error) {
