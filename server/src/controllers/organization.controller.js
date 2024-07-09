@@ -104,8 +104,8 @@ async function loginOrganization(req, res) {
 
         res
         .status(200)
-        .cookie("Access Token" , accessToken, options)
-        .cookie("Refresh Token" , refreshToken, options)
+        .cookie("AccessToken" , accessToken, options)
+        .cookie("RefreshToken" , refreshToken, options)
         .json({
             existedOrg,
             accessToken,
@@ -119,4 +119,32 @@ async function loginOrganization(req, res) {
 
 }
 
-module.exports = {registerOrganization, loginOrganization}
+async function logoutOrganization(req, res){
+
+    await Organization.findByIdAndUpdate(
+        {
+            _id: req.token._id
+        },
+        {
+            refreshToken: ""
+        },
+        {
+            new: true
+        }
+    )
+
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+
+    res
+    .status(200)
+    .clearCookie("AccessToken" , options)
+    .clearCookie("RefreshToken" , options)
+    .json({
+        message: "Logout"
+    })
+}
+
+module.exports = {registerOrganization, loginOrganization, logoutOrganization}
