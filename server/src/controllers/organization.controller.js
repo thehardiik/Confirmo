@@ -122,67 +122,76 @@ async function loginOrganization(req, res) {
 
 async function logoutOrganization(req, res){
 
-    await Organization.findByIdAndUpdate(
-        {
-            _id: req.token._id
-        },
-        {
-            refreshToken: ""
-        },
-        {
-            new: true
+    try {
+        await Organization.findByIdAndUpdate(
+            {
+                _id: req.token._id
+            },
+            {
+                refreshToken: ""
+            },
+            {
+                new: true
+            }
+        )
+    
+        const options = {
+            httpOnly: true,
+            secure: true
         }
-    )
+    
+        res
+        .status(200)
+        .clearCookie("AccessToken" , options)
+        .clearCookie("RefreshToken" , options)
+        .json({
+            message: "Logout"
+        })
 
-    const options = {
-        httpOnly: true,
-        secure: true
+    } catch (error) {
+        console.log(error)
     }
-
-    res
-    .status(200)
-    .clearCookie("AccessToken" , options)
-    .clearCookie("RefreshToken" , options)
-    .json({
-        message: "Logout"
-    })
 }
 
 async function resetAccessToken(req, res){
 
-    const recRefreshToken = req.cookies.RefreshToken
-
-    if(!recRefreshToken){
-        console.log("No token available")
-        throw new Error
-    }
+    try {
+        const recRefreshToken = req.cookies.RefreshToken
     
-    const decodedToken = jwt.verify(recRefreshToken, process.env.REFRESH_TOKEN_SECRET)
-
-    const org = await Organization.findOne({_id: decodedToken._id})
-
-    console.log(recRefreshToken)
-    console.log(org.refreshToken)
+        if(!recRefreshToken){
+            console.log("No token available")
+            throw new Error
+        }
+        
+        const decodedToken = jwt.verify(recRefreshToken, process.env.REFRESH_TOKEN_SECRET)
     
-    if(org.refreshToken !== recRefreshToken){
-        console.log("Invalid Access")
-        throw new Error
+        const org = await Organization.findOne({_id: decodedToken._id})
+    
+        console.log(recRefreshToken)
+        console.log(org.refreshToken)
+        
+        if(org.refreshToken !== recRefreshToken){
+            console.log("Invalid Access")
+            throw new Error
+        }
+    
+        const {accessToken, refreshToken} = await generateAccessAndRefreshToken(org)
+    
+        const options = {
+            httpOnly: true,
+            secure: true
+        }
+    
+        res
+        .status(200)
+        .cookie("AccessToken" , accessToken, options)
+        .cookie("RefreshToken" , recRefreshToken, options)
+        .json({
+            message: "Refresh Successfully"
+        })
+    } catch (error) {
+        console.log(error)
     }
-
-    const {accessToken, refreshToken} = await generateAccessAndRefreshToken(org)
-
-    const options = {
-        httpOnly: true,
-        secure: true
-    }
-
-    res
-    .status(200)
-    .cookie("AccessToken" , accessToken, options)
-    .cookie("RefreshToken" , recRefreshToken, options)
-    .json({
-        message: "Refresh Successfully"
-    })
 
 }
 
