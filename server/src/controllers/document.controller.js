@@ -1,6 +1,8 @@
 const Document  = require("../db/documents.model")
 const ImageEncryption = require("../utils/EncryptData")
 const path = require('path')
+const jwt = require('jsonwebtoken')
+const Decryption = require("../utils/DecryptData")
 
 async function createDocument(req, res){
     
@@ -43,4 +45,16 @@ async function createDocument(req, res){
     }
 }
 
-module.exports = {createDocument}
+async function verifyDocument(req, res){
+    const token = await Decryption(req.file.filename)
+
+
+    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+    console.log(decodedToken)
+
+    res.json({
+        message: "success?"
+    })
+}
+
+module.exports = {createDocument, verifyDocument}
