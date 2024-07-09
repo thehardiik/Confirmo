@@ -1,13 +1,8 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const jwt = require('jsonwebtoken')
 
 const documentSchema = new Schema({
-    documentID: {
-        type: String,
-        required: true,
-        unique: true,
-        index: true
-    },
     title: {
         type: String,
         required: true,
@@ -16,13 +11,31 @@ const documentSchema = new Schema({
         type: String,
         required: true,
     },
+    data: {
+        type: String,
+        //required: true
+    },
     organization: {
         type: Schema.Types.ObjectId,
         ref: "Organization",
-        required: true
+        //required: true
     },
     
 })
+
+documentSchema.methods.generateVerificationToken = function (){
+    return jwt.sign(
+        {
+            _id: this._id,
+            owner: this.owner,
+
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        {
+            expiresIn: process.env.ACCESS_TOKEN_EXPIRY
+        }
+    )
+}
 
 const Document = mongoose.model('Document' , documentSchema)
 
