@@ -1,4 +1,5 @@
 const Organization = require("../db/organization.model")
+const jwt = require('jsonwebtoken')
 
 async function generateAccessAndRefreshToken(organization) {
 
@@ -147,4 +148,42 @@ async function logoutOrganization(req, res){
     })
 }
 
-module.exports = {registerOrganization, loginOrganization, logoutOrganization}
+async function resetAccessToken(req, res){
+
+    const recRefreshToken = req.cookies.RefreshToken
+
+    if(!recRefreshToken){
+        console.log("No token available")
+        throw new Error
+    }
+    
+    const decodedToken = jwt.verify(recRefreshToken, process.env.REFRESH_TOKEN_SECRET)
+
+    const org = await Organization.findOne({_id: decodedToken._id})
+
+    console.log(recRefreshToken)
+    console.log(org.refreshToken)
+    
+    if(org.refreshToken !== recRefreshToken){
+        console.log("Invalid Access")
+        throw new Error
+    }
+
+    const {accessToken, refreshToken} = await generateAccessAndRefreshToken(org)
+
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+
+    res
+    .status(200)
+    .cookie("AccessToken" , accessToken, options)
+    .cookie("RefreshToken" , recRefreshToken, options)
+    .json({
+        message: "Refresh Successfully"
+    })
+
+}
+
+module.exports = {registerOrganization, loginOrganization, logoutOrganization, resetAccessToken}
