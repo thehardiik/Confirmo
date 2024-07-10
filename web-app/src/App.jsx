@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <div className='w-full h-[100vh] bg-black'>
+      <div className='w-full h-[100vh] bg-black text-white'>
         <div className='nav h-[15vh] w-full flex'>
 
           <div className='w-1/3 flex items-center gap-5'>
@@ -17,9 +17,9 @@ function App() {
           </div>
 
           <div className='w-1/3 flex items-center justify-center gap-5 text-white'>
-            <NavLink className='text-sm text-white'>Verify</NavLink>.
-            <NavLink className='text-sm text-white'>About Us</NavLink>.
-            <NavLink className='text-sm text-white'>Digitize</NavLink>
+            <NavLink className='text-sm text-white hover:text-lg' to="/verify">Verify</NavLink>.
+            <NavLink className='text-sm text-white hover:text-lg' to="/">About Us</NavLink>.
+            <NavLink className='text-sm text-white hover:text-lg' to="/digitize">Digitize</NavLink>
           </div>
           <div className='w-1/3 flex items-center justify-end'>
             <NavLink className='bg-blue-700 text-white flex items-center justify-center rounded-full w-[10vw] p-2 mr-10' to="/register">Register</NavLink>
