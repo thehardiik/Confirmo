@@ -1,6 +1,10 @@
 const Organization = require("../db/organization.model")
 const jwt = require('jsonwebtoken')
 
+
+let errorCode = 500;
+let errorMessage = ""
+
 async function generateAccessAndRefreshToken(organization) {
 
     const accessToken = organization.generateAccessToken()
@@ -19,21 +23,23 @@ async function registerOrganization(req, res) {
         // Get data from frontend
         const {name, email, password} = req.body
 
-        console.log(name)
 
         // validate data 
         if(name === ""){
-            console.log("Name cannot be empty")
+            errorMessage = "Bad Request: Name is required"
+            errorCode = 400;
             throw new Error
         }
 
         if(email === ""){
-            console.log("Name cannot be empty")
+            errorMessage = "Bad Request: Email is required"
+            errorCode = 400;
             throw new Error
         }
 
         if(password === ""){
-            console.log("Name cannot be empty")
+            errorMessage = "Bad Request: Password is required"
+            errorCode = 400;
             throw new Error
         }
 
@@ -43,7 +49,8 @@ async function registerOrganization(req, res) {
         const existedOrg = await Organization.findOne({email})
 
         if(existedOrg){
-            console.log("Organization Already Exist")
+            errorMessage = "Bad Request: Organization already exist"
+            errorCode = 403;
             throw new Error
         }
 
@@ -56,18 +63,21 @@ async function registerOrganization(req, res) {
         })
 
         if(!createdOrg){
+            errorMessage = "Database Error: Organization creation failed"
+            errorCode = 500;
             throw new Error
         }
 
-        console.log(createdOrg)
-
+      
         res.status(200).json({
             message: "Organization Registered"
         })
 
 
     } catch (error) {
-        console.log(error)
+        res.status(errorCode).json({
+            errorMessage
+        })
     }
 }
 
@@ -76,12 +86,26 @@ async function loginOrganization(req, res) {
     try {
         // get data from frontend
         const {email, password} = req.body
+
+        //validate
+        if(!email){
+            errorCode = 400
+            errorMessage = "Bad Request: Email is required"
+            throw new Error
+        }
+
+        if(!password){
+            errorCode = 400
+            errorMessage = "Bad Request: Password is required"
+            throw new Error
+        }
     
         // find organization with given email id
         const existedOrg = await Organization.findOne({email})
     
         if(!existedOrg){
-            console.log("Organization with this email does not exist")
+            errorCode = 404
+            errorMessage = "Bad Request: No organization with this email found"
             throw new Error
         }
     
@@ -89,12 +113,18 @@ async function loginOrganization(req, res) {
         const isPassCorrect = await existedOrg.isPasswordCorrect(password)
     
         if(!isPassCorrect){
-            console.log("Password Incorrect")
+            errorCode = 403
+            errorMessage = "Bad Request: Incorrect Password"
             throw new Error
         }
 
         const {accessToken, refreshToken} = await generateAccessAndRefreshToken(existedOrg)
-        console.log(accessToken, refreshToken)
+
+        if(!accessToken || !refreshToken){
+            errorCode = 500
+            errorMessage = "Database Error: Token creation failed"
+            throw new Error
+        }
 
         // TODO: Remove password and refresh token before sending to frontend
 
@@ -114,7 +144,9 @@ async function loginOrganization(req, res) {
         })
 
     } catch (error) {
-        console.log(error)
+        res.status(errorCode).json({
+            errorMessage
+        })
     }
 
 
@@ -149,7 +181,9 @@ async function logoutOrganization(req, res){
         })
 
     } catch (error) {
-        console.log(error)
+        res.status(errorCode).json({
+            errorMessage
+        })
     }
 }
 
@@ -159,23 +193,43 @@ async function resetAccessToken(req, res){
         const recRefreshToken = req.cookies.RefreshToken
     
         if(!recRefreshToken){
-            console.log("No token available")
+            errorCode = 401
+            errorMessage = "Unauthorized Request: No refresh token found"
             throw new Error
         }
         
         const decodedToken = jwt.verify(recRefreshToken, process.env.REFRESH_TOKEN_SECRET)
+
+        if(!decodedToken){
+            errorCode = 500
+            errorMessage = "Unauthorized Request: Token verification failed"
+            throw new Error
+        }
     
         const org = await Organization.findOne({_id: decodedToken._id})
+
+        if(!org){
+            errorCode = 500
+            errorMessage = "Unauthorized Request: No account with given token"
+            throw new Error
+
+        }
     
-        console.log(recRefreshToken)
-        console.log(org.refreshToken)
+        
         
         if(org.refreshToken !== recRefreshToken){
-            console.log("Invalid Access")
+            errorCode = 401
+            errorMessage = "Unauthorized Request: Invalid Token"
             throw new Error
         }
     
         const {accessToken, refreshToken} = await generateAccessAndRefreshToken(org)
+
+        if(!accessToken){
+            errorCode = 500
+            errorMessage = "Database Error: Access token generation failed"
+            throw new Error
+        }
     
         const options = {
             httpOnly: true,
@@ -190,7 +244,9 @@ async function resetAccessToken(req, res){
             message: "Refresh Successfully"
         })
     } catch (error) {
-        console.log(error)
+        res.status(errorCode).json({
+            errorMessage
+        })
     }
 
 }
