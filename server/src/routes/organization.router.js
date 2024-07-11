@@ -22,6 +22,18 @@ router.route('/refresh-token').post((req,res) => {
     resetAccessToken(req, res)
 })
 
+router.route('/isLogin').get(verifyJWT, (req,res) => {
+    if(!req.token){
+        res.status(401).json({
+            isLogin: false
+        })
+    }else{
+        res.status(200).json({
+            isLogin: true
+        })
+    }
+})
+
 
 module.exports = router
 

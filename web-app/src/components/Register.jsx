@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
+import Spinner from './Spinner'
 
 function Register() {
     
@@ -8,6 +9,7 @@ function Register() {
     const [password, setPassword] = useState("")
     const [confirm, setConfirm] = useState("")
     const [error, setError] = useState("")
+    const [loader, setLoader] = useState(false)
 
     let isError = false
 
@@ -15,6 +17,7 @@ function Register() {
 
     const handleRegitsration = () => {
 
+        
         if(name === ""){
             setError("Name is required")
             return
@@ -35,6 +38,8 @@ function Register() {
             return
         }
 
+        setLoader(true)
+
         fetch('/api/v1/organizations/register' , {
             method: "POST",
             headers: {
@@ -53,7 +58,7 @@ function Register() {
             return data.json()
         })
         .then((data) => {
-
+            setLoader(false)
             if(isError){
                 setError(data.errorMessage)
             }else{
@@ -120,9 +125,10 @@ function Register() {
 
             <div className='register name mt-9 flex justify-center '>
                 <button 
-                    className='pl-5 pr-5 pt-3 pb-3 text-md bg-white rounded-lg text-black font-normal'
+                    className='w-[8vw] flex items-center justify-center pt-3 pb-3 text-md bg-white rounded-lg text-black font-normal'
                     onClick={handleRegitsration}>
-                    Register
+                {!loader && "Register"}
+                {loader && <Spinner/>}
                 </button>
                 
             </div>

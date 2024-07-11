@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Spinner from './Spinner'
 
 function Register() {
     
@@ -7,6 +8,7 @@ function Register() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
+    const [loader, setLoader] = useState(false)
 
     const navigate = useNavigate()
     let isError = false
@@ -23,7 +25,7 @@ function Register() {
             return
         }
 
-        
+        setLoader(true)
 
         fetch('/api/v1/organizations/login' , {
             method: "POST",
@@ -43,7 +45,7 @@ function Register() {
             return data.json()
         })
         .then((data) => {
-
+            setLoader(false)
             if(isError){
                 setError(data.errorMessage)
             }else{
@@ -87,9 +89,10 @@ function Register() {
 
             <div className='register name mt-9 flex justify-center '>
                 <button 
-                    className='pl-5 pr-5 pt-3 pb-3 text-md bg-white rounded-lg text-black font-normal'
+                    className='w-[8vw] flex items-center justify-center pt-3 pb-3 text-md bg-white rounded-lg text-black font-normal'
                     onClick={handleLogin}>
-                    Login
+                {!loader && "Login"}
+                {loader && <Spinner/>}
                 </button>
                 
             </div>
