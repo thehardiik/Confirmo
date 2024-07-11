@@ -51,6 +51,7 @@ async function ImageEncryption (name, message) {
 
     }).catch((err) => {
         console.log(err)
+        return err
     })
 
 }

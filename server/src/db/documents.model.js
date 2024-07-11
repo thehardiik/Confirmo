@@ -18,17 +18,17 @@ const documentSchema = new Schema({
     organization: {
         type: Schema.Types.ObjectId,
         ref: "Organization",
-        //required: true
+        required: true
     },
     
 })
 
-documentSchema.methods.generateVerificationToken = function (){
+documentSchema.methods.generateVerificationToken = function (orgEmail){
     return jwt.sign(
         {
             _id: this._id,
             owner: this.owner,
-
+            org: orgEmail
         },
         process.env.ACCESS_TOKEN_SECRET,
         {
