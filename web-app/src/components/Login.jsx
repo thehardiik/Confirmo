@@ -56,7 +56,7 @@ function Register() {
 
 
   return (
-    <div className='register h-[85vh] flex justify-center'>
+    <div className='register h-[85vh] flex justify-center z-[10]'>
         <div className='h-[65vh] w-[40vw] bg-zinc-900 mt-10 rounded-lg border-zinc-700 border-[1px] pl-10 text-white pr-10'>
 
             <div className='register heading mt-8'>

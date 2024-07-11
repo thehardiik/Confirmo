@@ -44,9 +44,9 @@ function Verify() {
     }
 
   return (
-    <div className='digitize h-[90vh] flex justify-center bg-black'>
+    <div className='digitize h-[90vh] flex justify-center bg-black z-[10]'>
         <div className='w-[80vw] flex flex-row h-[80vh] bg-zinc-900 border-zinc-700 border-[1px] rounded-lg p-2 mt-10 '>
-            <div className='h-full w-[40vw] bg-zinc-950 pl-10 text-white pr-10 rounded-lg flex items-center justify-center'>
+            <div className='h-full w-[40vw] bg-zinc-950 pl-10 text-white pr-10 rounded-lg flex flex-col items-center justify-center'>
                 {!preview && 
                     <input 
                         type='file' 
@@ -65,6 +65,8 @@ function Verify() {
 
                 {!preview && <label htmlFor='document' className='text-zinc-400 text-[10vw] hover:cursor-pointer'><ImFolderUpload/></label>}
                 
+                {!preview && <p className='mt-3 text-sm text-zinc-400'>Click here to Upload Document (image)</p>}
+
                 {preview && 
 
                 <img 

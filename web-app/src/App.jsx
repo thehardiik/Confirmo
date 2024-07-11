@@ -31,15 +31,31 @@ function App() {
       <div className='w-full h-[100vh] bg-black text-white'>
         <div className='nav h-[15vh] w-full flex'>
 
-          <div className='w-1/3 flex items-center gap-5'>
-            <div className='logo flex h-[8vh] w-[8vh] rounded-full bg-white ml-10'></div>
-            <h1 className='text-md text-white'>confirmo.vi</h1>
+          <div className='w-1/3 flex items-center gap-2'>
+            <div className='logo flex h-[10vh] w-[10vh] rounded-full bg-white ml-10'>
+              <img src='/public/Logo.png' className='h-full w-full'></img>
+            </div>
+            <h1 className='text-lg text-white font-semibold'>Confirmo</h1>
           </div>
 
-          <div className='w-1/3 flex items-center justify-center gap-5 text-white'>
-            <NavLink className='text-sm text-white hover:text-lg' to="/verify">Verify</NavLink>.
-            <NavLink className='text-sm text-white hover:text-lg' to="/">About Us</NavLink>.
-            <NavLink className='text-sm text-white hover:text-lg' to="/digitize">Digitize</NavLink>
+          <div className='w-1/3 flex items-center justify-center gap-5 text-sm text-white'>
+            <NavLink 
+              className={({isActive}) => {
+                if(isActive) {
+                  return'text-blue-500'
+                  
+                }
+              }} to="/verify">Verify</NavLink>.
+
+            <NavLink 
+              className={({isActive}) => {
+                if(isActive) return'text-blue-500'
+              }} to="/">About Us</NavLink>.
+
+            <NavLink 
+              className={({isActive}) =>  {
+                if(isActive) return'text-blue-500'
+              }} to="/digitize">Digitize</NavLink>
           </div>
           <div className='w-1/3 flex items-center justify-end'>
             {!isLoggedIn && 
@@ -48,14 +64,16 @@ function App() {
 
             {isLoggedIn && 
               <button 
-                className='bg-blue-700 text-white flex items-center justify-center rounded-full w-[10vw] p-2 mr-10'
+                className='bg-[#114FEE] text-white flex items-center justify-center rounded-full w-[10vw] p-2 mr-10'
                 onClick={handleLogout}
               >Logout</button>
             }
             
           </div>
         </div>
+        <div className='blob'></div>
         <Outlet/>
+        <div className='blob2'></div>
       </div>
     </>
   )

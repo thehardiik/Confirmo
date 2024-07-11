@@ -26,3 +26,25 @@
     50%   {transform:scaleY(-1) rotate(0deg)}
     100%  {transform:scaleY(-1) rotate(-135deg)}
   }
+
+  .blob{
+    height: 200px;
+    width: 200px;
+    background: radial-gradient(circle at center, white, #114FEE);
+    filter: blur(150px);
+    position: absolute;
+    z-index: 0;
+    top: 20vw;
+    left: -15vw;
+  }
+
+  .blob2{
+    height: 200px;
+    width: 200px;
+    background: radial-gradient(circle at center, white, #114FEE);
+    filter: blur(150px);
+    position: absolute;
+    z-index: 0;
+    right: -25vw;
+    top: 20vw;
+  }

@@ -4,7 +4,7 @@ const path = require('path')
 const jwt = require('jsonwebtoken')
 const Decryption = require("../utils/DecryptData")
 const Organization = require("../db/organization.model")
-const { title } = require("process")
+const fs = require("fs")
 
 let errorMessage = "Something went wrong"
 let errorCode = 500
@@ -49,7 +49,8 @@ async function createDocument(req, res){
             errorCode = 500;
             throw new Error
         }
-        
+        const filepath1 = path.join(__dirname, '../../Output', "Encrypted.png");
+        fs.unlinkSync(filepath1)
         const verificationToken = await createdDocument.generateVerificationToken(req.token.email)
     
         if(!verificationToken){
