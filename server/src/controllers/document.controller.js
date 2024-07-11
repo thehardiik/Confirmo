@@ -62,7 +62,6 @@ async function createDocument(req, res){
         await ImageEncryption(req.file.filename, verificationToken)
 
         const filepath = path.join(__dirname, '../../Output', "Encrypted.png");
-    
         res.status(200).sendFile(filepath)
 
     } catch (error) {

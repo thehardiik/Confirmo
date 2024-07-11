@@ -11,6 +11,10 @@ function Digitze() {
     const [preview, setPreview] = useState(false)
     const [url, setUrl] = useState("")
 
+     
+    let isError = false
+    const [recieved, setRecieved] = useState(false)
+
     const handleSubmit = () => {
 
         if(title === ""){
@@ -34,9 +38,24 @@ function Digitze() {
                 method: "POST",
                 body: formData
 
-            }).then((data) => {
-                console.log(data)  
-            })   
+            })
+            .then((data) => {
+                if(data.status != 200){
+                   isError = true
+                   return data.json()
+                }else {
+                    return data
+                }
+                
+            })
+            .then((data) => {
+    
+                if(isError){
+                    setError(data.errorMessage)
+                }else{
+                   setRecieved(true)
+                }
+            })  
         }
     }
 
@@ -72,6 +91,12 @@ function Digitze() {
                         setUrl("")
                         setDocument()
                     }}></img>}
+
+                    
+
+                
+
+                {recieved && <img className='max-h-full max-w-full' src="/api/v1/documents/getImage"></img>}
             </div>
 
             <div className='h-full w-[40vw] pl-10 text-white pr-10'>
@@ -106,7 +131,9 @@ function Digitze() {
                     <h1 className=' text-sm'>Data</h1>  
                     <textarea 
                         className='w-full bg-black rounded-md p-3 mt-2 text-xs border-zinc-700 border-[1px] h-[5vw] resize-none'
-                        placeholder='Enter data about document'></textarea>
+                        placeholder='Enter data about document'
+                        onChange={(e) => setData(e.target.value)}
+                        value={data}></textarea>
                 </div>
 
 

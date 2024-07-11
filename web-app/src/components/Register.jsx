@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import {useNavigate} from 'react-router-dom'
 
 function Register() {
     
@@ -8,7 +9,12 @@ function Register() {
     const [confirm, setConfirm] = useState("")
     const [error, setError] = useState("")
 
+    let isError = false
+
+    const navigate = useNavigate("")
+
     const handleRegitsration = () => {
+
         if(name === ""){
             setError("Name is required")
             return
@@ -41,7 +47,18 @@ function Register() {
             })
         })
         .then((data) => {
-            console.log(data)
+            if(data.status != 200){
+               isError = true
+            }
+            return data.json()
+        })
+        .then((data) => {
+
+            if(isError){
+                setError(data.errorMessage)
+            }else{
+                navigate("/login")
+            }
         })
     }
 

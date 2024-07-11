@@ -5,11 +5,13 @@ function Verify() {
 
     const [title, setTitle] = useState("")
     const [owner, setOwner] = useState("")
-    const [data, setData] = useState("")
+    const [docdata, setDocData] = useState("")
     const [error, setError] = useState("")
     const [document, setDocument] = useState("")
     const [preview, setPreview] = useState(false)
     const [url, setUrl] = useState("")
+
+    let isError = false
 
     const handleSubmit = () => {
 
@@ -24,13 +26,19 @@ function Verify() {
                 body: formData
 
             }).then((data) => {
+                if(data.status != 200){
+                    isError = true
+                }
                 return data.json()
             }).then((data) => {
-
-                console.log(data)
-                setTitle(data.title)
-                setOwner(data.owner)
-                setData(data.data)
+                if(isError){
+                    setError(data.errorMessage)
+                }else{
+                    setTitle(data.title)
+                    setOwner(data.owner)
+                    setDocData(data.data)
+                }
+                
             })
         }
     }
@@ -102,7 +110,8 @@ function Verify() {
                     <textarea 
                         className='w-full bg-black rounded-md p-3 mt-2 text-xs border-zinc-700 border-[1px] h-[5vw] resize-none'
                         placeholder='Enter data about document'
-                        value={data}></textarea>
+                        value={docdata}
+                        readOnly></textarea>
                 </div>
 
 

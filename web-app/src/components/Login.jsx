@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Register() {
     
@@ -6,6 +7,9 @@ function Register() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
+
+    const navigate = useNavigate()
+    let isError = false
 
     const handleLogin = () => {
        
@@ -33,6 +37,18 @@ function Register() {
         })
         .then((data) => {
             console.log(data)
+            if(data.status !== 200){
+               isError = true
+            }
+            return data.json()
+        })
+        .then((data) => {
+
+            if(isError){
+                setError(data.errorMessage)
+            }else{
+                navigate("/digitize")
+            }
         })
     }
 
