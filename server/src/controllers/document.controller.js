@@ -104,7 +104,8 @@ async function verifyDocument(req, res){
             title: doc.title,
             owner: doc.owner,
             data: doc.data,
-            email: decodedToken.org
+            email: decodedToken.org,
+            id: doc._id
         })
     } catch (error) {
         res.status(errorCode).json({
