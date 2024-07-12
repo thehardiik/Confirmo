@@ -50,7 +50,7 @@ function App() {
             <NavLink 
               className={({isActive}) => {
                 if(isActive) return'text-blue-500'
-              }} to="/">About Us</NavLink>.
+              }} to="/">Home</NavLink>.
 
             <NavLink 
               className={({isActive}) =>  {

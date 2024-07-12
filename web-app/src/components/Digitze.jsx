@@ -161,13 +161,15 @@ function Digitze() {
         
         
         
-                        <div className='register name mt-8 flex justify-center '>
+                        <div className='register name mt-8 flex flex-row justify-center '>
                             <button 
-                                className='w-[8vw] flex items-center justify-center pt-2 pb-2 text-md bg-white rounded-lg text-black font-normal'
+                                className='w-[8vw] flex items-center justify-center pt-2 pb-2 mr-5 text-md bg-white rounded-lg text-black font-normal'
                                 onClick={handleSubmit}>
                                 {!loader && "Submit"}
                                 {loader && <Spinner/>}
                             </button>
+
+                            {recieved && <a className='w-[8vw] flex items-center justify-center pt-2 pb-2 text-md bg-white rounded-lg text-black font-normal' href='/api/v1/documents/getImage' download="/api/getImage">Download</a>}
                 
                         </div>
                         <h1 className='text-sm'>{error}</h1> 

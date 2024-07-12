@@ -30,9 +30,9 @@ documentSchema.methods.generateVerificationToken = function (orgEmail){
             owner: this.owner,
             org: orgEmail
         },
-        process.env.ACCESS_TOKEN_SECRET,
+        "access-token-seccret-22-2-0",
         {
-            expiresIn: process.env.ACCESS_TOKEN_EXPIRY
+            expiresIn: "10d"
         }
     )
 }

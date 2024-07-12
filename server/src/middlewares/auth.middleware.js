@@ -15,7 +15,7 @@ function verifyJWT (req, res, next){
         }
     
     
-        const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+        const decodedToken = jwt.verify(token, "access-token-seccret-22-2-0")
     
         if(!decodedToken._id){
             errorMessage = "Unauthorized Request: Invalid Token"

@@ -198,7 +198,7 @@ async function resetAccessToken(req, res){
             throw new Error
         }
         
-        const decodedToken = jwt.verify(recRefreshToken, process.env.REFRESH_TOKEN_SECRET)
+        const decodedToken = jwt.verify(recRefreshToken, "refresh-token-seccret-92-9-0")
 
         if(!decodedToken){
             errorCode = 500

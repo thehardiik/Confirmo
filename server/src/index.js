@@ -9,7 +9,7 @@ connectDB()
     console.log("MongoDB Connection Successfull")
 
     app.listen(4000 , () => {
-        console.log("App is running on PORT")
+        console.log("App is running on PORT: 4000")
     })   
 })
 .catch((error) => {

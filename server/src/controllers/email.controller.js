@@ -11,11 +11,27 @@ const transporter = nodemailer.createTransport({
 })
 
 
-
+let errorCode = 500
+let errorMessage = "Something went wrong"
 function sendMail(req, res) {
 
     try {
         const {email, id} = req.body
+
+        console.log(email)
+        
+        if(!email){
+            errorCode = 403
+            errorMessage = "Report Failed: bad request"
+            throw new Error
+        }
+
+        if(!id){
+            errorCode = 403
+            errorMessage = "Report Failed: bad request"
+            throw new Error
+        }
+
     
         const content = "Someone has reported fake document. Someone is trying to create fake document by using document: "  + id
     
@@ -29,8 +45,8 @@ function sendMail(req, res) {
         
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-                const errorCode = 500
-                const errorMessage = "Report Failed: something went wrong"
+                errorCode = 500
+                errorMessage = "Report Failed: something went wrong"
                 throw new Error
             } else {
               res

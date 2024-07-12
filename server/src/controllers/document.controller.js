@@ -6,7 +6,7 @@ const Decryption = require("../utils/DecryptData")
 const Organization = require("../db/organization.model")
 const fs = require("fs")
 
-let errorMessage = "Something went wrong"
+let errorMessage = "No document found"
 let errorCode = 500
 
 async function createDocument(req, res){
@@ -82,7 +82,7 @@ async function verifyDocument(req, res){
             errorMessage = "Internal Server Error: Decryption failed"
             throw new Error
         }
-        const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+        const decodedToken = jwt.verify(token, "access-token-seccret-22-2-0")
 
         if(!decodedToken.org){
             errorCode = 401

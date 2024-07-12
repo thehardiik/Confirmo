@@ -50,9 +50,9 @@ organizationSchema.methods.generateAccessToken = function (){
             name: this.name,
             email: this.email
         },
-        process.env.ACCESS_TOKEN_SECRET,
+        "access-token-seccret-22-2-0",
         {
-            expiresIn: process.env.ACCESS_TOKEN_EXPIRY
+            expiresIn: "1d"
         }
     )
 }
@@ -62,9 +62,9 @@ organizationSchema.methods.generateRefreshToken = function (){
         {
             _id: this._id,
         },
-        process.env.REFRESH_TOKEN_SECRET,
+        "refresh-token-seccret-92-9-0",
         {
-            expiresIn: process.env.REFRESH_TOKEN_EXPIRY
+            expiresIn: "10d"
         }
     )
 }

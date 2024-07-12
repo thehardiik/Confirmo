@@ -10,13 +10,13 @@ function Verify() {
     const [document, setDocument] = useState("")
     const [preview, setPreview] = useState(false)
     const [url, setUrl] = useState("")
-
+    const [email, setEmail] = useState("")
+    const [id, setId] = useState()
     let isError = false
+    const [verified, setVerified] = useState(false)
+
 
     const handleSubmit = () => {
-
-
-
         if(document){
             const formData = new FormData();
             formData.append("document" , document);
@@ -37,10 +37,39 @@ function Verify() {
                     setTitle(data.title)
                     setOwner(data.owner)
                     setDocData(data.data)
+                    setEmail(data.email)
+                    setId(data.id)
+                    setVerified(true)
                 }
                 
             })
         }
+    }
+
+    const handleReport = () => {
+        
+        fetch("/api/v1/documents/report" , {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "email": email,
+                "id": id
+            })
+
+        }).then((data) => {
+            if(data.status != 200){
+                isError = true
+            }
+            return data.json()
+        }).then((data) => {
+            if(isError){
+                setError(data.errorMessage)
+            }else{
+                setError("Email Sent")
+            }
+        })
     }
 
   return (
@@ -119,11 +148,45 @@ function Verify() {
 
 
                 <div className='register name mt-8 flex justify-center '>
-                    <button 
-                        className='pl-5 pr-5 pt-2 pb-2 text-md bg-white rounded-lg text-black font-normal'
-                        onClick={handleSubmit}>
-                        Submit
-                    </button>
+                    
+
+                    {!verified &&
+
+                        <button 
+                            className='pl-5 pr-5 pt-2 pb-2 text-md bg-white mr-5 rounded-lg text-black font-normal'
+                            onClick={handleSubmit}>
+                            Submit
+                        </button>
+                    }
+
+                    {verified &&
+
+                        <button 
+                            className='pl-5 pr-5 pt-2 pb-2 text-md bg-white mr-5 rounded-lg text-black font-normal'
+                            onClick={handleReport}>
+                            Report
+                        </button>
+                    }
+
+                    
+
+                        <button 
+                            className='pl-5 pr-5 pt-2 pb-2 text-md bg-white rounded-lg text-black font-normal'
+                            onClick={() => {
+                                setTitle("")
+                                setOwner("")
+                                setDocData("")
+                                setEmail("")
+                                setId()
+                                setVerified(false)
+                                setDocument()
+                                setUrl("")
+                            }}>
+                            Reset
+                        </button>
+                    
+
+                    
                 </div>
                 <h1 className='text-sm'>{error}</h1> 
 
