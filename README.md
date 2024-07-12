@@ -17,5 +17,66 @@ We are storing the validity of a document(image) in RGB bits of random pixels of
 - 🔍 **Report**: Case of document forgery can be easily reported.
 - 🖼️ **Portable**: Digitized documents are protable, and can be verified from anywhere.
 
+  
+## Installation
+
+1. Clone the repository:
+
+```
+git clone 
+```
+
+2. Navigate to the project directory:
+
+```
+cd Confirmo
+```
+
+3. Navigate to the server directory
+
+```
+cd server
+```
+
+4. Install Dependencies
+
+```
+npm install
+```
+
+5. Start the server:
+
+```
+npm run start
+```
+
+6. Opne new terminal and navigate to Trojan-Pixel:
+
+```
+cd Confirmo
+```
+
+7. Navigate to the web-app directory
+
+```
+cd web-app
+```
+
+8. Install Dependencies
+
+```
+npm install
+```
+
+9. Start the client:
+
+```
+npm run dev
+```
+
+10. Access the application in your browser 
+
+
+
 
 
