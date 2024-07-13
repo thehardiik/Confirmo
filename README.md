@@ -25,16 +25,18 @@ Check installation guide at :- https://github.com/thehardiik/Confirmo/blob/main/
 ## How do I use this?
 
 
+1. Resiter your organization by using register page.
+    <img  alt="image" src="">
+    
+2. If already registered, use login page.
 
-
+3. Digitize your documents(image) in digitized section
 
 > [!WARNING]
-> You need to be signed in before installing the supermemory extension, or you may experience problems
+> Only registered organizations can digitize documents.
 
-1. Resiter using register page.
-    <img  alt="image" src="https://drive.google.com/file/d/1s-6olzZd3XGRuWHm5lyoMGocqmsPJMxL/preview">
-    
-2. Login using login page
+4. Verify documents in one click by using verify section.
+   
   
 
 
