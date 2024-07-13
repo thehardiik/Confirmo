@@ -22,6 +22,21 @@ We are storing the validity of a document(image) in RGB bits of random pixels of
 
 Check installation guide at :- https://github.com/thehardiik/Confirmo/blob/main/Installation%20Guide.md
 
+## How do I use this?
+
+
+
+
+
+> [!WARNING]
+> You need to be signed in before installing the supermemory extension, or you may experience problems
+
+1. Resiter using register page.
+    <img width="1058" alt="image" src="https://drive.google.com/file/d/1s-6olzZd3XGRuWHm5lyoMGocqmsPJMxL/view?usp=drive_link">
+3. Now you can see on any page on bottom right (just click on it to save)
+  
+
+
 
 
 
