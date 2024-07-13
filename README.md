@@ -32,10 +32,22 @@ Check installation guide at :- https://github.com/thehardiik/Confirmo/blob/main/
 
 3. Digitize your documents(image) in digitized section
 
-> [!WARNING]
-> Only registered organizations can digitize documents.
+    > [!WARNING]
+    > Only registered organizations can digitize documents.
 
 4. Verify documents in one click by using verify section.
+
+## Implementation Details
+
+### 👨‍💻 Tech Stack
+
+Frontend Web - React Js, Tailwind CSS <br>
+Frontend App - Kotlin (under development) <br>
+Backend - Node Js, Express Js <br>
+Database - MongoDB <br>
+Authentication - JWT
+Image Manipulation - Jimp
+
    
   
 
