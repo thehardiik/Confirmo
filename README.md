@@ -32,7 +32,7 @@ Check installation guide at :- https://github.com/thehardiik/Confirmo/blob/main/
 > You need to be signed in before installing the supermemory extension, or you may experience problems
 
 1. Resiter using register page.
-    <img width="1058" alt="image" src="https://drive.google.com/file/d/1s-6olzZd3XGRuWHm5lyoMGocqmsPJMxL/preview">
+    <img  alt="image" src="https://drive.google.com/file/d/1s-6olzZd3XGRuWHm5lyoMGocqmsPJMxL/preview">
     
 2. Login using login page
   
