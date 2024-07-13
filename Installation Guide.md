@@ -4,19 +4,19 @@
 1. Clone the repository:
 
 ```
-git clone https://github.com/thehardiik/Trojan-Pixel.git
+git clone https://github.com/thehardiik/Confirmo.git
 ```
 
 2. Navigate to the project directory:
 
 ```
-cd Trojan-Pixel
+cd Confirmo
 ```
 
 3. Navigate to the server directory
 
 ```
-cd backend-server
+cd server
 ```
 
 4. Install Dependencies
@@ -34,13 +34,13 @@ npm run start
 6. Opne new terminal and navigate to Trojan-Pixel:
 
 ```
-cd Trojan-Pixel
+cd Confirmo
 ```
 
-7. Navigate to the client directory
+7. Navigate to the web-app client directory
 
 ```
-cd client
+cd web-app
 ```
 
 8. Install Dependencies
