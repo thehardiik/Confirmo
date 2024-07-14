@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  overflow-x: hidden;
+}
+
 .loader {
     width: 7%;
     aspect-ratio: 1;
