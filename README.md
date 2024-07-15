@@ -26,16 +26,41 @@ Check installation guide at :- https://github.com/thehardiik/Confirmo/blob/main/
 
 
 1. Resiter your organization by using register page.
-    <img  alt="image" src="">
+    <br>
+    
+    <img  alt="image" src="https://github.com/thehardiik/Confirmo/blob/main/assets/screenshots/Register.png">
+    <br>
+    <br>
+    <br>
     
 2. If already registered, use login page.
+    <br>
+    
+    <img  alt="image" src="https://github.com/thehardiik/Confirmo/blob/main/assets/screenshots/Login.png">
+    <br>
+    <br>
+    <br>
 
 3. Digitize your documents(image) in digitized section
+   <br>
+   
 
     > [!WARNING]
     > Only registered organizations can digitize documents.
 
+   <img  alt="image" src="https://github.com/thehardiik/Confirmo/blob/main/assets/screenshots/Digitize.png">
+   <br>
+   <br>
+   <br>
+    
+
 4. Verify documents in one click by using verify section.
+    <br>
+    
+    <img  alt="image" src="https://github.com/thehardiik/Confirmo/blob/main/assets/screenshots/Verify.png">
+    <br>
+    <br>
+    <br>
 
 ## Implementation Details
 
@@ -49,6 +74,8 @@ Authentication - JWT
 Image Manipulation - Jimp
 
 ### 👨‍💻 Architecture
+
+    <img  alt="image" src="https://github.com/thehardiik/Confirmo/blob/main/assets/architecture/Digitize.jpeg">
 
    
   
