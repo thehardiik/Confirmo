@@ -85,6 +85,12 @@ Image Manipulation - Jimp
   Verification
   <img  alt="image" src="https://github.com/thehardiik/Confirmo/blob/main/assets/architecture/Verification.jpeg">
 
+## Contributors
+
+Frontend Web - Kashish Ahuja, Krish 
+Frontend App - Sudhanshu SIngh
+Backend - Hardik Srivastav (that's me)
+
    
   
 
