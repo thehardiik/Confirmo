@@ -48,6 +48,8 @@ Database - MongoDB <br>
 Authentication - JWT
 Image Manipulation - Jimp
 
+### 👨‍💻 Architecture
+
    
   
 
