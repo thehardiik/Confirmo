@@ -75,7 +75,15 @@ Image Manipulation - Jimp
 
 ### 👨‍💻 Architecture
 
-    <img  alt="image" src="https://github.com/thehardiik/Confirmo/blob/main/assets/architecture/Digitize.jpeg">
+
+  Digitization
+  <img  alt="image" src="https://github.com/thehardiik/Confirmo/blob/main/assets/architecture/Digitize.jpeg">
+  <br>
+  <br>
+  <br>
+
+  Verification
+  <img  alt="image" src="https://github.com/thehardiik/Confirmo/blob/main/assets/architecture/Verification.jpeg">
 
    
   
