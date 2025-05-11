@@ -87,9 +87,7 @@ Image Manipulation - Jimp
 
 ## Contributors
 
-Frontend Web - Kashish Ahuja, Krish <br>
-Frontend App - Sudhanshu SIngh <br>
-Backend - Hardik Srivastav (that's me) <br>
+~ Hardik Srivastav (that's me) <br>
 
    
   
